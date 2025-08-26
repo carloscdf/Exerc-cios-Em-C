@@ -1,11 +1,13 @@
 //Tendo como dados de entrada a altura de uma pessoa, construa um algoritmo que calcule seu peso ideal.
-//FÓRMULA: (72.7*altura) - 58
+//FÓRMULA: (72.7*altura)-58 para homens
+//FÓRMULA: (62.1*h)-44.7 para mulheres
 #include <stdio.h>
 #include <stdlib.h>
 
 typedef struct Pessoa{
     double altura;
-    double pesoIdeal;
+    double pesoIdealHomem;
+    double pesoIdealMulher;
 } Pessoa;
 
 void ler(Pessoa *p){
@@ -16,12 +18,14 @@ void ler(Pessoa *p){
 void imprimir(Pessoa *p){
     printf("\n\n========= RESULTADO =========\n");
     printf("Altura da pessoa: %.2lf\n", p->altura);
-    printf("Peso ideal da pessoa: %.2lf\n", p->pesoIdeal);
+    printf("Peso ideal caso seja homem: %.2lf\n", p->pesoIdealHomem);
+    printf("Peso ideal caso seja mulher: %.2lf\n", p->pesoIdealMulher);
     printf("=============================");
 }
 
 void calcular(Pessoa *p){
-    p->pesoIdeal = (72.7*p->altura)-58;
+    p->pesoIdealHomem = (72.7*p->altura)-58;
+    p->pesoIdealMulher = (62.1*p->altura)-44.7;
 }
 
 int processarPesoIdeal(){
