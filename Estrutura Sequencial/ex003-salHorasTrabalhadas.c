@@ -31,6 +31,7 @@ int calcSalario(double valorHora, double qtdHorasTrabalhadas){
     sal->qtdHorasTrabalhadas = qtdHorasTrabalhadas;
     sal->salario = sal->valorHora*sal->qtdHorasTrabalhadas;
     imprimirSalario(sal);
+    free(sal);
     return 0;
 }
 
@@ -40,7 +41,6 @@ void imprimirSalario(salarioMes *sal){
     printf("Quantidade de horas trabalhadas: %.2lf\n", sal->qtdHorasTrabalhadas);
     printf("Salario a receber no mes: R$%.2lf\n", sal->salario);
     printf("=============================");
-    free(sal);
 }
 
 int main(){

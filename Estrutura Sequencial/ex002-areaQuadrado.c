@@ -12,13 +12,14 @@ void imprimirResultado(quadrado *q,float dobroArea);
 int calcArea(float lado){
     quadrado *q = (quadrado*) malloc(sizeof(quadrado)); //alocação na heap ao invés de stack
     if(q == NULL){ //verifica se a memória foi alocada corretamente
-        printf("Erro ao alocar memória");
+        printf("Digite a temperatura em farenheit: ");
         return 1;    
     }
     q->lado = lado;
     q->area = q->lado*q->lado;
     float dobroArea = q->area*2;
     imprimirResultado(q, dobroArea);
+    free(q);
     return 0;
 } 
 
@@ -37,7 +38,6 @@ void imprimirResultado(quadrado *q, float dobroArea){
     printf("Area: %.2f\n", q->area);
     printf("Dobro da area: %.2f", dobroArea);
     printf("\n=============================");
-    free(q);
 }
 
 int main(){
