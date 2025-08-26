@@ -2,40 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct salarioMes{
+typedef struct SalarioMes{
     double valorHora;
     double qtdHorasTrabalhadas;
     double salario;
-} salarioMes;
+} SalarioMes;
 
-void imprimirSalario(salarioMes *sal);
-int calcSalario(double valorHora, double qtdHorasTrabalhadas);
-
-void lerValores(){
-    double valorHora;
-    double qtdHorasTrabalhadas;
+void ler(SalarioMes *sal){
     printf("Digite o valor da hora: ");
-    scanf("%lf", & valorHora);
+    scanf("%lf", &sal->valorHora);
     printf("Digite a quantidade de horas trabalhadas: ");
-    scanf("%lf", &qtdHorasTrabalhadas);
-    calcSalario(valorHora, qtdHorasTrabalhadas);
+    scanf("%lf", &sal->qtdHorasTrabalhadas);
 }
 
-int calcSalario(double valorHora, double qtdHorasTrabalhadas){
-    salarioMes *sal = (salarioMes*)malloc(sizeof(salarioMes));
-    if(sal == NULL){
-        printf("\n\nAlocação de memória falhou");
-        return 1;
-    }
-    sal->valorHora = valorHora;
-    sal->qtdHorasTrabalhadas = qtdHorasTrabalhadas;
-    sal->salario = sal->valorHora*sal->qtdHorasTrabalhadas;
-    imprimirSalario(sal);
-    free(sal);
-    return 0;
-}
-
-void imprimirSalario(salarioMes *sal){
+void imprimir(SalarioMes *sal){
     printf("\n\n========= RESULTADO =========\n");
     printf("Valor da hora: %.2lf\n", sal->valorHora);
     printf("Quantidade de horas trabalhadas: %.2lf\n", sal->qtdHorasTrabalhadas);
@@ -43,7 +23,24 @@ void imprimirSalario(salarioMes *sal){
     printf("=============================");
 }
 
+void calcSalarioMes(SalarioMes *sal){
+    sal->salario = sal->valorHora*sal->qtdHorasTrabalhadas;
+}
+
+int processarSalario(){
+    SalarioMes *sal = (SalarioMes*)malloc(sizeof(SalarioMes));
+    if(sal == NULL){
+        printf("\n\nAlocação de memória falhou");
+        return 1;
+    }
+    ler(sal);
+    calcSalarioMes(sal);
+    imprimir(sal);
+    free(sal);
+    return 0;
+}
+
 int main(){
-    lerValores();
+    processarSalario();
     return 0;
 }

@@ -8,24 +8,9 @@ typedef struct Temperatura{
     double celsius;
 } Temperatura;
 
-void imprimir(Temperatura *t);
-
 void lerTemperatura(Temperatura *t){
     printf("Digite a temperatura em celsius: ");
     scanf("%lf", &t->celsius);
-}
-
-int converterParaFarenheit(){
-    Temperatura *t = (Temperatura*)malloc(sizeof(Temperatura));
-    if(t == NULL){
-        printf("\n\nAlocação de memória falhou");
-        return 1;
-    }
-    lerTemperatura(t);
-    t->farenheit = (t->celsius * 9/5)+32;
-    imprimir(t);
-    free(t);
-    return 0;
 }
 
 void imprimir(Temperatura *t){
@@ -35,7 +20,24 @@ void imprimir(Temperatura *t){
     printf("=============================");
 }
 
+void converterParaFarenheit(Temperatura *t){
+    t->farenheit = (t->celsius * 9.0/5.0)+32.0;
+}
+
+int processarTemperatura(){
+    Temperatura *t = (Temperatura*)malloc(sizeof(Temperatura));
+    if(t == NULL){
+        printf("\n\nAlocação de memória falhou");
+        return 1;
+    }
+    lerTemperatura(t);
+    converterParaFarenheit(t);
+    imprimir(t);
+    free(t);
+    return 0;
+}
+
 int main(){
-    converterParaFarenheit();
+    processarTemperatura();
     return 0;
 }

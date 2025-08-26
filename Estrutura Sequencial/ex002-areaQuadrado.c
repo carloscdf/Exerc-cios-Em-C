@@ -2,45 +2,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct quadrado{
+typedef struct Quadrado{
     float lado;
     float area;
-} quadrado;
+    float dobroArea;
+} Quadrado;
 
-void imprimirResultado(quadrado *q,float dobroArea);
+void ler(Quadrado *q){
+    printf("Digite o lado do quadrado: ");
+    scanf("%f", &q->lado);
+}
 
-int calcArea(float lado){
-    quadrado *q = (quadrado*) malloc(sizeof(quadrado)); //alocação na heap ao invés de stack
-    if(q == NULL){ //verifica se a memória foi alocada corretamente
-        printf("Digite a temperatura em farenheit: ");
+void imprimir(Quadrado *q){
+    printf("\n========= RESULTADO =========\n");
+    printf("Lados: %.2f\n", q->lado);
+    printf("Area: %.2f\n", q->area);
+    printf("Dobro da area: %.2f", q->dobroArea);
+    printf("\n=============================");
+}
+
+void calcArea(Quadrado *q){
+    q->area = q->lado*q->lado;
+    q->dobroArea = q->area*2;
+}
+
+int processarArea(){
+    Quadrado *q = (Quadrado*) malloc(sizeof(Quadrado));
+    if(q == NULL){ 
+        printf("\n\nAlocação de memória falhou");
         return 1;    
     }
-    q->lado = lado;
-    q->area = q->lado*q->lado;
-    float dobroArea = q->area*2;
-    imprimirResultado(q, dobroArea);
+    ler(q);
+    calcArea(q);
+    imprimir(q);
     free(q);
     return 0;
 } 
 
-void lerValores(){
-    float lado;
-
-    printf("Digite o lado do quadrado: ");
-    scanf("%f", &lado);
-
-    calcArea(lado);
-}
-
-void imprimirResultado(quadrado *q, float dobroArea){
-    printf("\n========= RESULTADO =========\n");
-    printf("Lados: %.2f\n", q->lado);
-    printf("Area: %.2f\n", q->area);
-    printf("Dobro da area: %.2f", dobroArea);
-    printf("\n=============================");
-}
-
 int main(){
-    lerValores();
+    processarArea();
     return 0;
 }
